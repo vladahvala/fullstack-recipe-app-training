@@ -40,6 +40,24 @@ app.post("/api/favorites", (req, res) => {
     }
 })
 
+app.get("/api/favorites/:userId", async (req, res) => {
+    try {
+        const {userId} = req.params
+
+      const userFavorites =  await db.select().from(favoritesTable).where(eq(favoritesTable.userId, userId))
+       
+      res.json(userFavorites);
+      
+    } catch (error) {
+        console.log("Error catching a favorite", error);
+        res.status(500).json({error: "Something went wrong" });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log("Server is running on PORT:", PORT);
+})
+
 app.delete("/api/favorites/:userId/:recipeId", async (req, res) => {
     try {
         const {userId, recipeId} = req.params
