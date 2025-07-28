@@ -12,7 +12,7 @@ app.get("/api/health", (req, res) => {
     res.status(200).json({success:true});
 });
 
-app.post("/api/favorites", (req, res) => {
+app.post("/api/favorites", async (req, res) => {
     try {
         const { userId, recipeId, title, image, cookTime, servings } = req.body;
 
@@ -47,7 +47,7 @@ app.get("/api/favorites/:userId", async (req, res) => {
       const userFavorites =  await db.select().from(favoritesTable).where(eq(favoritesTable.userId, userId))
        
       res.json(userFavorites);
-      
+
     } catch (error) {
         console.log("Error catching a favorite", error);
         res.status(500).json({error: "Something went wrong" });
