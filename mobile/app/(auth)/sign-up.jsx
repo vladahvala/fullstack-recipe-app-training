@@ -39,7 +39,7 @@ const SignUpScreen = () => {
     setLoading(true);
 
     try {
-      await signUp.create({emailAdress: email, password})
+      await signUp.create({emailAddress: email, password})
 
       await signUp.prepareEmailAddressVerification({strategy: "email_code"})
     
